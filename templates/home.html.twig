@@ -1,0 +1,47 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	Accueil
+{% endblock %}
+
+{% block body %}
+	<h1>Nos meilleurs produits</h1>
+	<div class="row">
+		{% for product in products %}
+			<div class="col">
+				<div class="card">
+					<img src="{{product.mainPicture}}" alt="{{product.name}}" class="img-fluid">
+					<div class="card-body">
+						<span class="badge bg-light mb-2">{{product.category.name}}</span>
+						<h2 class="card-title">{{product.name}}</h2>
+						<h3>{{product.price / 100}}&euro;</h3>
+						<p class="card-text">{{product.shortDescription}}</p>
+						<a href="#" class="btn btn-primary btn-sm">Voir le produit.</a>
+						<a href="#" class="btn btn-success btn-sm">Ajouter au panier.</a>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+	<hr>
+	<h1>Un service irréprochable !</h1>
+	<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis nobis voluptatum alias placeat officiis quibusdam ipsam officia similique. Nemo totam nisi voluptatum nam dolorum architecto. Sequi inventore dolorum sapiente quasi?</p>
+
+	<div class="row">
+		{% include "shared/_assurance.html.twig" with {
+                'color': 'primary',
+                'icon': 'fas fa-truck',
+                'text': 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia, iste aut praesentium animi minus beatae.'
+            } %}
+		{% include "shared/_assurance.html.twig" with {
+                'color': 'success',
+                'icon': 'fas fa-check',
+                'text': 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia, iste aut praesentium animi minus beatae.'
+            } %}
+		{% include "shared/_assurance.html.twig" with {
+                'color': 'warning',
+                'icon': 'fas fa-lock',
+                'text': 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia, iste aut praesentium animi minus beatae.'
+            } %}
+	</div>
+{% endblock %}
