@@ -9,17 +9,13 @@
 	<div class="row">
 		{% for product in products %}
 			<div class="col">
-				<div class="card">
-					<img src="{{product.mainPicture}}" alt="{{product.name}}" class="img-fluid">
-					<div class="card-body">
-						<span class="badge bg-light mb-2">{{product.category.name}}</span>
-						<h2 class="card-title">{{product.name}}</h2>
-						<h3>{{product.price / 100}}&euro;</h3>
-						<p class="card-text">{{product.shortDescription}}</p>
-						<a href="#" class="btn btn-primary btn-sm">Voir le produit.</a>
-						<a href="#" class="btn btn-success btn-sm">Ajouter au panier.</a>
-					</div>
-				</div>
+				{% include "shared/_product-card.html.twig" with {
+					'mainPicture': product.mainPicture,
+					'productName': product.name,
+					'categoryName': product.category.name,
+					'price': product.price,
+					'shortDescription': product.shortDescription,
+				} %}
 			</div>
 		{% endfor %}
 	</div>

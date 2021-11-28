@@ -1,0 +1,19 @@
+<ol class="breadcrumb">
+
+	{% for i in 1..count %}
+		<li class="breadcrumb-item {{ i == count ? 'active' : '' }}">
+
+			{% if i != count %}
+
+				<a href="{{ _context['url_' ~ i] }}">
+					{{ _context['text_' ~ i] }}
+				</a>
+
+			{% else %}
+				{{ _context['text_' ~ i] }}
+			{% endif %}
+
+		</li>
+	{% endfor %}
+
+</ol>
