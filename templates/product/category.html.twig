@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Catégorie:
+	{{category.name}}
+{% endblock %}
+
+{% block body %}
+
+	{% include "shared/_breadcrumb.html.twig" with {
+		'count': 2,
+
+		'url_1': '/',
+		'text_1': 'Accueil',
+
+		'text_2': category.name,
+	} %}
+
+	<h1>Catégorie:
+		{{category.name}}</h1>
+
+	<div class="row">
+		{% for product in category.products %}
+			<div class="col-3">
+
+				{% include "shared/_product-card.html.twig" with {
+					'mainPicture': product.mainPicture,
+					'productName': product.name,
+					'categoryName': product.category.name,
+					'price': product.price,
+					'shortDescription': product.shortDescription,
+				} %}
+
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{product.name}}
+{% endblock %}
+
+{% block body %}
+	{% include "shared/_breadcrumb.html.twig" with {
+		'count': 3,
+
+		'url_1': '/',
+		'text_1': 'Accueil',
+
+		'url_2': path('product_category', {
+			'id': product.category.id,
+			'slug': product.category.name,
+		}),
+		'text_2': product.category ? product.category.name : 'Aucune catégorie',
+
+		'text_3': product.name,
+	} %}
+
+	<h1>{{product.name}}</h1>
+
+	<div class="row">
+		<div class="col-4">
+			<img class="img-fluid" src="{{product.mainPicture}}" alt="{{product.name}}">
+		</div>
+
+		<div class="col">
+			<span class="badge bg-light mb-2">{{ product.category ? product.category.name : 'Aucune catégorie' }}</span>
+			<p>{{product.shortDescription}}</p>
+			<h2>{{product.price / 100}}
+				€</h2>
+
+			<a href="#" class="btn btn-success">
+				<i class="fas fa-shopping-cart"></i>
+				Ajouter au panier
+			</a>
+		</div>
+	</div>
+{% endblock %}
