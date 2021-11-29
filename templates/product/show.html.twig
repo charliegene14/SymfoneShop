@@ -12,8 +12,8 @@
 		'text_1': 'Accueil',
 
 		'url_2': path('product_category', {
-			'id': product.category.id,
-			'slug': product.category.name,
+			'id': product.category ? product.category.id : '00',
+			'slug': product.category ? product.category.slug : 'no-category',
 		}),
 		'text_2': product.category ? product.category.name : 'Aucune catégorie',
 

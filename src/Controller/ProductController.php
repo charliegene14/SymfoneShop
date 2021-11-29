@@ -76,8 +76,14 @@ class ProductController extends AbstractController
             'category' => $category,
         ]);
 
-        if (!$product || !$category && $category_id != "00" && $category_slug != "no-category") {
+        if (!$product) {
             throw new NotFoundHttpException("Le produit demandée n'éxiste pas.");
+        }
+
+        if (!$category) {
+            if ($category_id != "00" || $category_slug != "no-category") {
+                throw new NotFoundHttpException("Le produit demandée n'éxiste pas.");
+            }
         }
 
         return $this->render('product/show.html.twig', [
