@@ -28,6 +28,12 @@
 					'categoryName': product.category.name,
 					'price': product.price,
 					'shortDescription': product.shortDescription,
+					'urlShow': path('product_show', {
+						'category_id': category.id ?: '00',
+						'category_slug': category.slug,
+						'product_id': product.id,
+						'product_slug': product.slug,
+					}),
 				} %}
 
 			</div>
