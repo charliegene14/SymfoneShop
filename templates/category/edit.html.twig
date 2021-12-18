@@ -1,0 +1,21 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Modifier la catégorie: {{ category.name }}
+{% endblock %}
+
+{% block body %}
+    {% if (isModified != 0) %}
+        <div class="alert alert-dismissible alert-success">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <strong>La catégorie a bien été modifiée !</strong>
+        </div>
+    {% endif %}
+
+    <h1>Modifier la catégorie</h1>
+    <h2>{{ category.name }}</h2>
+
+    {% include "shared/_category-form.html.twig" with {
+        'buttonText': 'Modifer la catégorie',
+    } %}
+{% endblock %}

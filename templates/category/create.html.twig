@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Ajouter une catégorie
+{% endblock %}
+
+{% block body %}
+  {% if (isNew != 0) %}
+        <div class="alert alert-dismissible alert-success">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <strong>La catégorie a bien été ajoutée!</strong>
+        </div>
+  {% endif %}
+
+    <h1>Ajouter une catégorie</h1>
+
+    {% include "shared/_category-form.html.twig" with {
+      'buttonText': 'Ajouter la catégorie',  
+    } %}
+{% endblock %}

@@ -1,0 +1,23 @@
+{{ form_start(formView) }}
+
+<div class="row">
+
+    <div class="col">
+        {{ form_row(formView.name) }}
+        {{ form_row(formView.price) }}
+    </div>
+
+    <div class="col">
+        {{ form_row(formView.mainPicture) }}
+        {{ form_row(formView.category) }}
+        {{ form_row(formView.shortDescription) }}
+    </div>
+
+</div>
+
+<button type="submit" class="btn btn-success">
+        <i class="fas fa-save"></i>
+        {{ buttonText }}
+</button>
+
+{{ form_end(formView) }}

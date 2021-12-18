@@ -1,0 +1,13 @@
+{{ form_start(formView) }}
+
+<div class="d-flex p-2">
+    <div class="col-4">
+        {{ form_row(formView.name) }}
+    </div>
+    <button type="submit" class="btn btn-success">
+            <i class="fas fa-save"></i>
+            {{ buttonText }}
+    </button>
+</div>
+
+{{ form_end(formView) }}
