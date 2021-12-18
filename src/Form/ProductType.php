@@ -12,6 +12,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 class ProductType extends AbstractType
 {
@@ -25,6 +27,8 @@ class ProductType extends AbstractType
 
         ->add('price', MoneyType::class, [
             'label' => 'Prix du produit',
+            'divisor' => 100,
+            'scale' => 2,
         ])
 
         ->add('category', EntityType::class, [
@@ -42,8 +46,7 @@ class ProductType extends AbstractType
 
         ->add('shortDescription', TextareaType::class, [
             'label' => 'Courte description du produit',
-        ])
-        ;
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
