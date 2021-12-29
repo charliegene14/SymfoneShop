@@ -31,7 +31,7 @@ class CategoryController extends AbstractController
         $form = $this->createForm(CategoryType::class);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted())
+        if ($form->isSubmitted() && $form->isValid())
         {
             $category = $form->getData();
             $category->setSlug(strtolower($slugger->slug($category->getName())));
@@ -61,14 +61,12 @@ class CategoryController extends AbstractController
         $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
             $category->setSlug(strtolower($slugger->slug($category->getName())));
             $request->request->set('isModified', 1);
             $this->em->flush();
         }
-
-        dump($request);
 
         return $this->render('category/edit.html.twig', [
             'category' => $category,
