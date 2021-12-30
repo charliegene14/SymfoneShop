@@ -32,7 +32,7 @@ class ProductController extends AbstractController
     }
 
     /**
-     * @Route("/{id}-{slug}", name="product_category")
+     * @Route("/{id}-{slug}", name="product_category", priority=-1)
      */
     public function category($id, $slug): Response
     {

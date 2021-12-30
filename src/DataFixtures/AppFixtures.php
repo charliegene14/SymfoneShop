@@ -2,26 +2,30 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Product;
-use App\Entity\Category;
-
 use Faker\Factory;
-use Bezhanov\Faker\Provider\Commerce;
-use Bluemmb\Faker\PicsumPhotosProvider;
-use Liior\Faker\Prices;
+use App\Entity\User;
 
+use App\Entity\Product;
+use Liior\Faker\Prices;
+use App\Entity\Category;
+use Bezhanov\Faker\Provider\Commerce;
+
+use Bluemmb\Faker\PicsumPhotosProvider;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 class AppFixtures extends Fixture
 {
 
     protected $slugger;
+    protected $encoder;
 
-    public function __construct(SluggerInterface $slugger)
+    public function __construct(SluggerInterface $slugger, UserPasswordEncoderInterface $encoder)
     {
         $this->slugger = $slugger;
+        $this->encoder = $encoder;
     }
 
     public function load(ObjectManager $manager): void
@@ -31,6 +35,26 @@ class AppFixtures extends Fixture
         $faker->addProvider(new Prices($faker));
         $faker->addProvider(new Commerce($faker));
         $faker->addProvider(new PicsumPhotosProvider($faker));
+
+        /**
+         * Create admin user and some random users
+         */
+        $admin = new User;
+        $admin  ->setEmail("admin@local.com")
+                ->setFullName("Admin")
+                ->setPassword($this->encoder->encodePassword($admin, "password"))
+                ->setRoles(['ROLE_ADMIN']);
+
+        $manager->persist($admin);
+
+        for ($u = 0; $u < 5; $u++) {
+            $user = new User ;
+            $user   ->setEmail("user$u@local.com")
+                    ->setFullName($faker->name)
+                    ->setPassword($this->encoder->encodePassword($user, "password"));
+
+            $manager->persist($user);
+        }
 
         /**
          * Create 3 random categories for database.
