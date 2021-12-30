@@ -2,15 +2,19 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity("email", message="Cette adresse email est déjà utilisée.")
  */
 class User implements UserInterface
 {
@@ -20,9 +24,11 @@ class User implements UserInterface
      * @ORM\Column(type="integer")
      */
     private $id;
-
+ 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank(message="L'adresse email est obligatoire.")
+     * @Assert\Email(message="L'adresse mail n'est pas valide.")
      */
     private $email;
 
@@ -34,11 +40,13 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\NotBlank(message="Le mot de passe est obligatoire.")
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le nom est obligatoire.")
      */
     private $fullName;
 
