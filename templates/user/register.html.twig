@@ -10,14 +10,6 @@
         </div>
     {% else %}
 
-        {% if isCreated == 1 %}
-        <div class="alert alert-dismissible alert-success">
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            <strong>Votre compte a bien été créé !</strong>
-            <a href=" {{ path("security_login") }} " class="alert-link">Se connecter.</a>.
-        </div>
-        {% endif %}
-
         <h1>Inscription</h1>
 
         {{ form_start(formView) }}

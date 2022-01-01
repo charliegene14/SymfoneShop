@@ -37,13 +37,14 @@ class CategoryController extends AbstractController
             $category->setSlug(strtolower($slugger->slug($category->getName())));
 
             $this->em->persist($category);
-            $request->request->set('isNew', 1);
             $this->em->flush();
+
+            $this->addFlash('success', 'La catégorie a bien été créée !');
+
         }
 
         return $this->render('category/create.html.twig', [
             'formView' => $form->createView(),
-            'isNew' => $request->request->get('isNew', 0),
         ]);
     }
 
@@ -64,14 +65,15 @@ class CategoryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $category->setSlug(strtolower($slugger->slug($category->getName())));
-            $request->request->set('isModified', 1);
             $this->em->flush();
+
+            $this->addFlash('success', 'La catégorie a bien été modifiée !');
+
         }
 
         return $this->render('category/edit.html.twig', [
             'category' => $category,
             "formView" => $form->createView(),
-            "isModified" => $request->request->get('isModified', 0),
         ]);
     }
 }

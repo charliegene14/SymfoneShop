@@ -29,13 +29,13 @@ class UserController extends AbstractController
             $em->persist($user);
             $em->flush();
 
-            $request->request->set('isCreated', 1);
-       
+            $this->addFlash('success', 'Votre compte a bien été créé !');
+
+            return $this->redirectToRoute("security_login");
         }
 
         return $this->render('user/register.html.twig', [
             'formView' => $form->createView(),
-            'isCreated' => $request->request->get('isCreated', 0),
         ]);
     }
     

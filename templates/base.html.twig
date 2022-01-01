@@ -27,7 +27,21 @@
 
 		{% include "shared/_navbar.html.twig" %}
 
-		<div class="container pt-5"> {% block body %}{% endblock %}
+		<div class="container pt-5">
+
+		{% for type, messages in app.flashes %}
+			<div class="alert alert-dismissible alert-{{ type }}">
+				{% for message in messages %}
+					<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            		<strong>{{ message }}</strong>
+				{% endfor %}
 			</div>
-		</body>
-	</html>
+		{% endfor %}
+
+		{% block body %}
+		{% endblock %}
+
+		</div>
+
+	</body>
+</html>

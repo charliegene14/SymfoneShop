@@ -23,6 +23,7 @@
 			<div class="col-3">
 
 				{% include "shared/_product-card.html.twig" with {
+					'productId': product.id,
 					'mainPicture': product.mainPicture,
 					'productName': product.name,
 					'categoryName': product.category.name,

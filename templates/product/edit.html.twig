@@ -6,24 +6,6 @@
 
 {% block body %}
 
-    {% if isNew == 1 %}
-    
-    <div class="alert alert-dismissible alert-success">
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        <strong>Le produit a bien été ajouté !</strong>
-        <a href="{{
-            path('product_show', {
-                'category_id': product.category ? product.category.id : '00',
-                'category_slug': product.category ? product.category.slug : 'no-category',
-                'product_id': product.id,
-                'product_slug': product.slug,
-            })
-
-        }}" class="alert-link">Voir la page.</a>.
-    </div>
-
-    {% endif %}
-
     <h1>Modifier un produit</h1>
     <h2>{{ product.name }}</h2>
 

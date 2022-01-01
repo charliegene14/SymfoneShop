@@ -10,6 +10,7 @@
 		{% for product in products %}
 			<div class="col">
 				{% include "shared/_product-card.html.twig" with {
+					'productId': product.id,
 					'mainPicture': product.mainPicture,
 					'productName': product.name,
 					'categoryName': product.category.name,

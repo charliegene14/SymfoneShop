@@ -6,6 +6,6 @@
 		<h3>{{price / 100}}&euro;</h3>
 		<p class="card-text">{{shortDescription}}</p>
 		<a href="{{ urlShow }}" class="btn btn-primary btn-sm">Voir le produit.</a>
-		<a href="#" class="btn btn-success btn-sm">Ajouter au panier.</a>
+		<a href=" {{ path('cart_add', {'id': productId}) }} " class="btn btn-success btn-sm">Ajouter au panier.</a>
 	</div>
 </div>

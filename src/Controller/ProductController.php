@@ -112,9 +112,10 @@ class ProductController extends AbstractController
             $this->manager->persist($product);
             $this->manager->flush();
 
+            $this->addFlash('success', 'Le produit a bien été créé !');
+
             return $this->redirectToRoute('product_edit', [
-                'id' => $product->getId(),
-                'isNew' => 1,
+                'id' => $product->getId()
             ]);
         }
 
@@ -140,6 +141,9 @@ class ProductController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $product->setSlug(strtolower($slugger->slug($product->getName())));
             $this->manager->flush();
+
+            $this->addFlash('success', 'Le produit a bien été modifié !');
+
         }
 
         return $this->render("/product/edit.html.twig", [
