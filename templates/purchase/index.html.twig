@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes commandes{% endblock %}
+
+{% block body %}
+<h1>Mes commandes</h1>
+
+{% if purchases | length > 0 %}
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+        <th scope="col">n°</th>
+        <th scope="col">Adresse</th>
+        <th scope="col">Date</th>
+        <th scope="col">Produits</th>
+        <th scope="col">Total</th>
+        <th scope="col">Statut</th>
+    </tr>
+  </thead>
+  <tbody>
+
+  {% for purchase in purchases %}
+    <tr>
+        <td> {{ purchase.id }} </td>
+        <td> {{ purchase.address }} {{ purchase.postalCode }} {{ purchase.city }}</td>
+        <td> {{ purchase.purchasedAt | date('d/m/Y H:i') }} </td>
+        <td>
+            <ul>
+            {% for item in purchase.purchaseItems %}
+                <li> {{ item.productName }} ({{ item.productPrice / 100 }}&euro;) x {{ item.quantity }}</li>
+            {% endfor %}
+            
+            </ul>
+        </td>
+        <td> {{ purchase.total / 100 }}&euro;</td>
+        <td> {{ purchase.status }} </td>
+    </tr>
+  {% endfor %}
+
+  </tbody>
+</table>
+
+{% else %}
+    <div class="alert alert-warning">
+      <p class="mb-0">Vous n'avez passé aucune commande !</p>
+    </div>
+{% endif %}
+
+{% endblock %}

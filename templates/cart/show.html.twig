@@ -49,6 +49,32 @@
   </tfoot>
 </table>
 
+<hr>
+
+<h1>Livraison</h1>
+
+  {% if app.user %}
+  <div class="alert alert-info">
+    <p class="mb-0">Avant de confirmer votre commande, remplissez ce formulaire de livraison.</p>
+  </div>
+
+  {{ form_start(ConfirmationForm, {'action': path('purchase_confirm')}) }}
+
+  {{ form_widget(ConfirmationForm) }}
+
+  <button type="submit" class="btn btn-success">Confirmer</button>
+
+  {{ form_end(ConfirmationForm) }}
+
+  {% else %}
+
+  <div class="alert alert-warning">
+    <p class="mb-0">Vous devez être connecté pour confirmer votre commande !</p>
+    <a href=" {{ path("security_login") }} " class="btn btn-success">Se connecter</a> ou <a href=" {{ path("user_register") }} ">créer un compte</a>
+  </div>
+
+  {% endif %}
+
 {% else %}
 
 <div class="alert alert-warning">

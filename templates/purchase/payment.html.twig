@@ -1,0 +1,37 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Paiement de la commande n° {{ id }}
+{% endblock %}
+
+{% block body %}
+    <h1>Paiement de la commande n° {{ id }}</h1>
+
+    <form id="payment-form">
+    
+      <div id="payment-element">
+      <!-- Elements will create form elements here -->
+      </div>
+
+      <button class="btn btn-success" id="submit">Submit</button>
+
+      <div id="error-message">
+      <!-- Display error message to your customers here -->
+      </div>
+
+    </form>
+
+{% endblock %}
+
+{% block js_end %}
+    {{ parent() }}
+
+    <script>
+        const clientSecret = '{{ clientSecret }}';
+        const publicKey = '{{ publicKey }}';
+        const redirectSuccessUrl = "{{ url('purchase_payment_success', {'id': id}) }}"
+    </script>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="/assets/js/payment.js"></script>
+{% endblock %}

@@ -3,7 +3,6 @@
 namespace App\Cart;
 
 use App\Repository\ProductRepository;
-use PhpParser\Node\Stmt\Continue_;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class CartService {
@@ -15,6 +14,10 @@ class CartService {
     {
         $this->session = $session;
         $this->productRepository = $productRepository;
+    }
+
+    public function empty(): void {
+        $this->session->set('cart', []);
     }
 
     public function add(int $id): void {
@@ -41,6 +44,9 @@ class CartService {
         return $total;
     }
 
+    /**
+     * @return CartItem[]
+     */
     public function getCartItems(): array {
 
         $items = [];
