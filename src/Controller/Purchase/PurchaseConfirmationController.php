@@ -43,8 +43,8 @@ class PurchaseConfirmationController extends AbstractController {
         /** @var Purchase */
         $purchase = $form->getData();
         $purchase   ->setUser($user)
-                    ->setPurchasedAt(new DateTime())
-                    ->setTotal($cartService->getTotal())
+                    // ->setPurchasedAt(new DateTime()) // set in prePersist ORM entity 
+                    // ->setTotal($cartService->getTotal()) // set in preFlush ORM entity 
         ;
 
         $em->persist($purchase);

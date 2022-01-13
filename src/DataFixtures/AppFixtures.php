@@ -72,8 +72,8 @@ class AppFixtures extends Fixture
             $category_name = $faker->word();
 
             $category
-                ->setName($category_name)
-                ->setSlug(strtolower($this->slugger->slug($category_name)));
+                ->setName($category_name);
+                // ->setSlug(strtolower($this->slugger->slug($category_name)));  // set in Doctrine Listener
 
             $manager->persist($category);
 
@@ -87,7 +87,7 @@ class AppFixtures extends Fixture
                 $product
                     ->setName($product_name)
                     ->setPrice($faker->price(9900, 499900))
-                    ->setSlug(strtolower($this->slugger->slug($product_name)))
+                    // ->setSlug(strtolower($this->slugger->slug($product_name))) // set in Doctrine Listener
                     ->setCategory($category)
                     ->setShortDescription($faker->paragraph())
                     ->setMainPicture($faker->imageUrl(200, 200, true));
