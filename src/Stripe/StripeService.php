@@ -2,14 +2,16 @@
 
 namespace App\Stripe;
 
-use App\Cart\CartService;
 use App\Entity\Purchase;
+use App\Cart\CartService;
+use App\Event\PurchaseSuccessEvent;
 use App\Repository\PurchaseRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 
 class StripeService {
 
@@ -21,6 +23,7 @@ class StripeService {
     protected $flashBag;
     protected $urlGenerator;
     protected $secretEndpoint;
+    protected $dispatcher;
 
     public function __construct(
         string $secretKey,
@@ -30,7 +33,8 @@ class StripeService {
         EntityManagerInterface $em,
         CartService $cartService,
         FlashBagInterface $flashBag,
-        UrlGeneratorInterface $urlGenerator
+        UrlGeneratorInterface $urlGenerator,
+        EventDispatcherInterface $dispatcher
     )
     {
         $this->secretKey = $secretKey;
@@ -41,6 +45,7 @@ class StripeService {
         $this->cartService = $cartService;
         $this->flashBag = $flashBag;
         $this->urlGenerator = $urlGenerator;
+        $this->dispatcher = $dispatcher;
     }
 
     public function getPublicKey(): string {
@@ -74,9 +79,14 @@ class StripeService {
         /** @var Purchase */
         $purchase = $this->purchaseRepository->find($id);
 
+
         $purchase->setStatus(Purchase::STATUS_PAID);
         $this->cartService->empty();
         $this->flashBag->add('success', 'Votre commande a bien été passée ! Merci !');
         $this->em->flush();
+
+
+        $purchaseEvent = new PurchaseSuccessEvent($purchase);
+        $this->dispatcher->dispatch($purchaseEvent, 'purchase.success');
     }
 }
