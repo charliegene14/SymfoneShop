@@ -2,6 +2,7 @@
 
 namespace App\Controller\Purchase;
 
+use App\Cart\CartService;
 use Stripe\Webhook;
 use App\Entity\Purchase;
 use Psr\Log\LoggerInterface;
@@ -15,6 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Stripe\PaymentIntent;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 
 class PurchasePaymentController extends AbstractController {
 
@@ -48,7 +50,7 @@ class PurchasePaymentController extends AbstractController {
     * @Route("/purchase/check", name="purchase_check", methods={"POST"})
     * 
     */
-    public function check(Request $request, StripeService $stripeService): Response {
+    public function check(StripeService $stripeService): Response {
 
         // This is your Stripe CLI webhook secret for testing your endpoint locally.
         $endpoint_secret = $stripeService->getSecretEndpoint();
@@ -82,7 +84,9 @@ class PurchasePaymentController extends AbstractController {
         switch ($event->type) {
             case 'payment_intent.succeeded':
                 $paymentIntent = $event->data->object;
-                $stripeService->eventSucceeded(intval($paymentIntent->metadata->id));
+
+                $purchaseId = intval($paymentIntent->metadata->id);
+                $stripeService->eventSucceeded($purchaseId);
                 break;
 
             default:

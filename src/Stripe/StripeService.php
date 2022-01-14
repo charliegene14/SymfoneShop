@@ -79,13 +79,6 @@ class StripeService {
         /** @var Purchase */
         $purchase = $this->purchaseRepository->find($id);
 
-
-        $purchase->setStatus(Purchase::STATUS_PAID);
-        $this->cartService->empty();
-        $this->flashBag->add('success', 'Votre commande a bien été passée ! Merci !');
-        $this->em->flush();
-
-
         $purchaseEvent = new PurchaseSuccessEvent($purchase);
         $this->dispatcher->dispatch($purchaseEvent, 'purchase.success');
     }
