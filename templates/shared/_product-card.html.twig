@@ -3,7 +3,7 @@
 	<div class="card-body">
 		<span class="badge bg-light mb-2">{{categoryName}}</span>
 		<h2 class="card-title">{{productName}}</h2>
-		<h3>{{price / 100}}&euro;</h3>
+		<h3>{{price | amount}}</h3>
 		<p class="card-text">{{shortDescription}}</p>
 		<a href="{{ urlShow }}" class="btn btn-primary btn-sm">Voir le produit.</a>
 		<a href=" {{ path('cart_add', {'id': productId}) }} " class="btn btn-success btn-sm">Ajouter au panier.</a>

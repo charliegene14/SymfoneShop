@@ -24,7 +24,7 @@
     <tr>
         <td><img src="{{ item.product.mainPicture }}" alt="" width="64px" height="64px"></td>
         <td>{{ item.product.name }}</td>
-        <td>{{ item.product.price / 100 }}&euro;</td>
+        <td>{{ item.product.price | amount }}</td>
         <td>
             <a href=" {{ path("cart_decrement", {"id": item.product.id}) }} "><i class="fa fa-minus"></i></a>
             &nbsp;
@@ -32,7 +32,7 @@
             &nbsp;
             <a href=" {{ path("cart_add", {"id": item.product.id}) }}?returnToCart=true"><i class="fa fa-plus"></i></a>
         </td>
-        <td>{{ item.total / 100}}&euro;</td>
+        <td>{{ item.total | amount}}</td>
         <td><a href=" {{ path("cart_delete", {"id": item.product.id}) }} "><i class="fa fa-trash-alt"></i></a></td>
     </tr>
   {% endfor %}
