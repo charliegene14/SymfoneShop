@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin panel{% endblock %}
+
+{% block body %}
+
+<h1>Panneau d'administration</h1>
+
+<div class="row mt-5">
+
+    <div class="col">
+        {% include "admin/_menu-admin.html.twig" %}
+    </div>
+
+    <div class="col">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Produits</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            {% for product in products %}
+                <tr class="table-primary">
+                    <th scope="row"><a href="{{ path("product_edit", {'id': product.id}) }}"> {{ product.name }} </a></th>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Catégories</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            {% for category in categories %}
+                <tr class="table-primary">
+                    <th scope="row"><a href="{{ path("category_edit", {'id': category.id}) }}"> {{ category.name }} </a></th>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+{% endblock %}
