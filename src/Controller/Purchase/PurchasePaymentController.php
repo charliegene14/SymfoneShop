@@ -8,6 +8,7 @@ use App\Entity\Purchase;
 use Psr\Log\LoggerInterface;
 use App\Stripe\StripeService;
 use App\Repository\PurchaseRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -50,7 +51,7 @@ class PurchasePaymentController extends AbstractController {
     * @Route("/purchase/check", name="purchase_check", methods={"POST"})
     * 
     */
-    public function check(StripeService $stripeService): Response {
+    public function check(StripeService $stripeService, EntityManagerInterface $em, CartService $cartService, PurchaseRepository $purchaseRepository, FlashBagInterface $flashBag): Response {
 
         // This is your Stripe CLI webhook secret for testing your endpoint locally.
         $endpoint_secret = $stripeService->getSecretEndpoint();
@@ -87,6 +88,14 @@ class PurchasePaymentController extends AbstractController {
 
                 $purchaseId = intval($paymentIntent->metadata->id);
                 $stripeService->eventSucceeded($purchaseId);
+                
+                $purchase = $purchaseRepository->find($purchaseId);
+                $purchase->setStatus(Purchase::STATUS_PAID);
+
+                $cartService->empty();
+                $flashBag->add('success', 'Votre commande a bien été passée ! Merci !');
+                $em->flush();
+
                 break;
 
             default:

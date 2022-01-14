@@ -26,7 +26,7 @@ class PurchaseSuccessRefreshSubscriber implements EventSubscriberInterface {
     public static function getSubscribedEvents()
     {
         return [
-            'purchase.success' => 'refreshSuccess'
+            
         ];
     }
 
