@@ -48,10 +48,10 @@ class PurchasePaymentSuccessController extends AbstractController {
          * See at App\Stripe\StripeService->eventSucceeded().
          */
 
-        $purchase->setStatus(Purchase::STATUS_PAID);
-        $em->flush();
-        $cartService->empty();
-        $this->addFlash("success", "La commande a été payée payée et confirmée !");
+        // $purchase->setStatus(Purchase::STATUS_PAID);
+        // $em->flush();
+        // $cartService->empty();
+        // $this->addFlash("success", "La commande a été payée payée et confirmée !");
 
         $purchaseEvent = new PurchaseSuccessEvent($purchase);
         $dispatcher->dispatch($purchaseEvent, 'purchase.success');
