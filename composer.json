@@ -28,6 +28,7 @@
         "symfony/proxy-manager-bridge": "5.1.*",
         "symfony/security-bundle": "5.1.*",
         "symfony/string": "5.1.*",
+        "symfony/twig-bridge": "5.1.*",
         "symfony/twig-bundle": "5.1.*",
         "symfony/validator": "5.1.*",
         "symfony/yaml": "5.1.*",
