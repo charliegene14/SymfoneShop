@@ -50,8 +50,8 @@ class PurchasePaymentSuccessController extends AbstractController {
 
         // $purchase->setStatus(Purchase::STATUS_PAID);
         // $em->flush();
-        // $cartService->empty();
-        // $this->addFlash("success", "La commande a été payée payée et confirmée !");
+        $cartService->empty();
+        $this->addFlash("success", "La commande a été payée payée et confirmée !");
 
         $purchaseEvent = new PurchaseSuccessEvent($purchase);
         $dispatcher->dispatch($purchaseEvent, 'purchase.success');

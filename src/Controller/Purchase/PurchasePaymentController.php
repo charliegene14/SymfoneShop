@@ -91,12 +91,7 @@ class PurchasePaymentController extends AbstractController {
                 
                 $purchase = $purchaseRepository->find($purchaseId);
                 $purchase->setStatus(Purchase::STATUS_PAID);
-
-                $cartService->empty();
-                $flashBag->add('success', 'Votre commande a bien été passée ! Merci !');
                 $em->flush();
-
-                break;
 
             default:
                 echo 'Received unknown event type ' . $event->type;
